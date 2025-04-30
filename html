@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GFA 3-Quarter 4</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #output, #contacts {
+      margin-top: 20px;
+      white-space: pre;
+    }
+    input, button {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Part 1: Number Shape Generator</h2>
+  <button onclick="promptNumber()">Start</button>
+  <div id="output"></div>
+
+  <hr>
+
+  <h2>Part 2: Contact List</h2>
+  <input type="text" id="nameInput" placeholder="Enter name" />
+  <button onclick="addName()">Add</button>
+  <button onclick="removeName()">Remove</button>
+  <div id="contacts"></div>
+
+  <script>
+    
+    function promptNumber() {
+      let number;
+      while (true) {
+        const input = prompt("Enter a number:");
+        if (!isNaN(input) && input.trim() !== '') {
+          number = parseInt(input);
+          break;
+        }
+      }
+
+      let output = `Number inputted: ${number}\n\n`;
+      if (number % 2 !== 0) {
+        
+        for (let i = number; i >= 1; i--) {
+          output += (i + " ").repeat(number).trim() + "\n";
+        }
+      } else {
+       
+        for (let i = number; i >= 1; i--) {
+          output += (i + " ").repeat(i).trim() + "\n";
+        }
+      }
+      document.getElementById("output").innerText = output;
+    }
+
+    
+    let contacts = [];
+
+    function displayContacts() {
+      document.getElementById("contacts").innerText = "Contacts: " + contacts.join(", ");
+    }
+
+    function addName() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name !== "") {
+        if (contacts.length === 7) {
+          contacts.shift(); 
+        }
+        contacts.push(name);
+        displayContacts();
+        document.getElementById("nameInput").value = "";
+      }
+    }
+
+    function removeName() {
+      if (contacts.length > 0) {
+        contacts.pop();
+        displayContacts();
+      }
+    }
+  </script>
+
+</body>
+</html>
